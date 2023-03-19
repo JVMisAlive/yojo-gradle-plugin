@@ -8,43 +8,43 @@ plugins {
 group 'ru.yojo.yamltopojo'
 version '0.0.1'
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifactId = "yojo-gradle-plugin"
-            groupId = "ru.yojo.yamltopojo"
-            version = "0.0.1"
-            from components.java
-            pom {
-                packaging = "jar"
-                name.set("YOJO gradle plugin")
-                url.set("https://github.com/JVMisAlive/yojo-gradle-plugin")
-                description.set("This yojo gradle plugin")
-
-                licenses {
-                    license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
-
-                scm {
-                    connection.set("scm:https://github.com/JVMisAlive/yojo-gradle-plugin.git")
-                    developerConnection.set("scm:git@github.com:JVMisAlive/yojo-generator.git")
-                    url.set("https://github.com/JVMisAlive/yojo-gradle-plugin.git")
-                }
-
-                developers {
-                    developer {
-                        id.set("YOJO")
-                        name.set("Vladimir Morozkin")
-                        email.set("jvmorozkin@gmail.com")
-                    }
-                }
-            }
-        }
-    }
-}
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            artifactId = "yojo-gradle-plugin"
+//            groupId = "ru.yojo.yamltopojo"
+//            version = "0.0.1"
+//            from components.java
+//            pom {
+//                packaging = "jar"
+//                name.set("YOJO gradle plugin")
+//                url.set("https://github.com/JVMisAlive/yojo-gradle-plugin")
+//                description.set("This yojo gradle plugin")
+//
+//                licenses {
+//                    license {
+//                        name.set("The Apache License, Version 2.0")
+//                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+//                    }
+//                }
+//
+//                scm {
+//                    connection.set("scm:https://github.com/JVMisAlive/yojo-gradle-plugin.git")
+//                    developerConnection.set("scm:git@github.com:JVMisAlive/yojo-generator.git")
+//                    url.set("https://github.com/JVMisAlive/yojo-gradle-plugin.git")
+//                }
+//
+//                developers {
+//                    developer {
+//                        id.set("YOJO")
+//                        name.set("Vladimir Morozkin")
+//                        email.set("jvmorozkin@gmail.com")
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
 
 allprojects {
     repositories {
