@@ -100,8 +100,8 @@ jar {
 
 gradlePlugin {
     plugins {
-        register("yojo-plugin") {
-            id = 'ru.yojo.yamltopojo.yojo-gradle-plugin'
+        register("yojo-gradle-plugin") {
+            id = 'yojo-gradle-plugin'
             displayName = 'yojo-gradle-plugin'
             description = 'Gradle plugin that generates POJOs.'
             implementationClass = 'ru.yojo.yamltopojo.YojoPlugin'

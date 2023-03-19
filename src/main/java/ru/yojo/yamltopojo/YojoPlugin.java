@@ -9,10 +9,9 @@ public class YojoPlugin implements Plugin<Project> {
     @Override
     public void apply(Project project) {
         String taskName = "generateYojo";
-        YojoExtension jooqExtension = project.getExtensions().create("yojo", YojoExtension.class);
+        YojoExtension yojoExtension = project.getExtensions().create("yojo", YojoExtension.class);
 
-        // create a jooq task for each jooq configuration domain object
-        jooqExtension.getConfigurations().configureEach(config -> {
+        yojoExtension.getConfigurations().configureEach(config -> {
             TaskProvider<YojoGenerate> yojo =
                     project.getTasks().register(
                             taskName,
