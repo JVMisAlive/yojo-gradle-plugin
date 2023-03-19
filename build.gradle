@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.gradle.plugin-publish' version '1.1.0'
+    id 'maven-publish'
 }
 
 group 'ru.yojo.yamltopojo'
