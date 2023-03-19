@@ -1,0 +1,110 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradle.plugin-publish' version '1.1.0'
+}
+
+group 'ru.yojo.yamltopojo'
+version '0.0.1'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = "yojo-gradle-plugin"
+            groupId = "ru.yojo.yamltopojo"
+            version = "0.0.1"
+            from components.java
+            pom {
+                packaging = "jar"
+                name.set("YOJO gradle plugin")
+                url.set("https://github.com/JVMisAlive/yojo-gradle-plugin")
+                description.set("This yojo gradle plugin")
+
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+
+                scm {
+                    connection.set("scm:https://github.com/JVMisAlive/yojo-gradle-plugin.git")
+                    developerConnection.set("scm:git@github.com:JVMisAlive/yojo-generator.git")
+                    url.set("https://github.com/JVMisAlive/yojo-gradle-plugin.git")
+                }
+
+                developers {
+                    developer {
+                        id.set("YOJO")
+                        name.set("Vladimir Morozkin")
+                        email.set("jvmorozkin@gmail.com")
+                    }
+                }
+            }
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+ext {
+    junitVersion = '5.8.2'
+}
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainModule = 'ru.yojo.yamltopojo'
+    mainClass = 'ru.yojo.yamltopojo.YojoPlugin'
+}
+
+mainClassName = "ru.yojo.yamltopojo.YojoPlugin"
+
+jar {
+    manifest {
+        attributes "Main-Class": "$mainClassName"
+    }
+    zip64 = true
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+        duplicatesStrategy(DuplicatesStrategy.INCLUDE)
+    }
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'com.github.JVMisAlive:yojo-generator:0.0.1'
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "$mainClassName"
+    }
+    zip64 = true
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+        duplicatesStrategy(DuplicatesStrategy.INCLUDE)
+    }
+}
+
+gradlePlugin {
+    plugins {
+        register("yojo-plugin") {
+            id = 'ru.yojo.yamltopojo.yojo-gradle-plugin'
+            displayName = 'yojo-gradle-plugin'
+            description = 'Gradle plugin that generates POJOs.'
+            implementationClass = 'ru.yojo.yamltopojo.YojoPlugin'
+        }
+    }
+}
