@@ -82,7 +82,7 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("yojo-gradle-plugin") {
+        create("yojo-gradle-plugin") {
             id = 'yojo-gradle-plugin'
             displayName = 'yojo-gradle-plugin'
             description = 'Gradle plugin that generates POJOs.'
