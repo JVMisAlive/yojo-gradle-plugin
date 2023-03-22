@@ -1,4 +1,4 @@
-package ru.yojo.yamltopojo;
+package ru.yojo.codegen;
 
 import org.gradle.api.NamedDomainObjectContainer;
 import org.gradle.api.model.ObjectFactory;
