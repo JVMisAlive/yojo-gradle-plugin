@@ -31,13 +31,11 @@ public abstract class YojoGenerateTask extends DefaultTask {
         ConfigurableFileCollection inputFileCollection =
                 getProject().getObjects().fileCollection().from(
                         getProject().getLayout().getProjectDirectory().dir(yojoConfig.getDirectories().getContractDirectory()).getAsFileTree());
-        inputFileCollection.forEach(System.out::println);
 
         YojoGenerator yojoGenerator = new YojoGenerator(new SchemaMapper());
         inputFileCollection.forEach(file -> {
             String path = getProject().getBuildDir() + yojoConfig.getDirectories().getOutputDirectory() + file.getName().replaceAll("\\..*", "");
             if (new File(path).mkdirs()) {
-                System.out.println(path);
                 yojoGenerator.generate(file.getPath(), path, new LombokProperties(yojoConfig.getLombokEnabled(), yojoConfig.getAllArgsConstructor(), yojoConfig.getAccessors()));
             }
         });
