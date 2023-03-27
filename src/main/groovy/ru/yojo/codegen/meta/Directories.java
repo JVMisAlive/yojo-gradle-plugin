@@ -3,6 +3,8 @@ package ru.yojo.codegen.meta;
 import org.gradle.api.file.ProjectLayout;
 import org.gradle.api.tasks.Input;
 
+import java.io.File;
+
 public class Directories {
     @Input
     protected String outputDirectory;
@@ -12,6 +14,7 @@ public class Directories {
     public Directories(ProjectLayout layout) {
 
         if (getOutputDirectory() == null) {
+            new File(layout.getBuildDirectory() + "generated-src/yojo/").mkdirs();
             setOutputDirectory(layout.getBuildDirectory().dir("generated-src/yojo/").toString());
         }
 
