@@ -4,8 +4,10 @@ plugins {
     id 'maven-publish'
     id 'groovy'
     id 'java-library'
-    id 'jvm-test-suite'
 }
+
+group 'io.github.yojo.gradle-plugin'
+version '0.0.1'
 
 //LocalPublishing
 //publishing {
@@ -23,21 +25,16 @@ allprojects {
     }
 }
 
-group 'ru.yojo'
-version '0.0.1'
-
-
 dependencies {
     implementation gradleApi()
     implementation localGroovy()
 
-    api 'com.github.JVMisAlive:yojo-generator:0.0.1'
+    api 'com.github.yojo-generator:generator:0.0.1'
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
-    testImplementation gradleTestKit()
 }
 
 test {
@@ -47,16 +44,17 @@ test {
 publishing {
     repositories {
         //mavenCentral()
+        //mavenLocal()
     }
     publications {
         pluginPublication(MavenPublication) {
-            artifactId = "yojo-gradle-plugin"
-            groupId = "ru.yojo"
+            artifactId = "gradle-plugin"
+            groupId = "io.github.yojo-generator"
             version = "0.0.1"
             pom {
                 packaging = "jar"
                 name.set("YOJO gradle plugin")
-                url.set("https://github.com/JVMisAlive/yojo-gradle-plugin")
+                url.set("https://github.com/yojo-generator/gradle-plugin")
                 description.set("This yojo gradle plugin")
 
                 licenses {
@@ -67,14 +65,14 @@ publishing {
                 }
 
                 scm {
-                    connection.set("scm:https://github.com/JVMisAlive/yojo-gradle-plugin.git")
-                    developerConnection.set("scm:git@github.com:JVMisAlive/yojo-generator.git")
-                    url.set("https://github.com/JVMisAlive/yojo-gradle-plugin.git")
+                    connection.set("scm:https://github.com/yojo-generator/gradle-plugin.git")
+                    developerConnection.set("scm:git@github.com:yojo-generator/gradle-plugin.git")
+                    url.set("https://github.com/yojo-generator/gradle-plugin.git")
                 }
 
                 developers {
                     developer {
-                        id.set("YOJO")
+                        id.set("YOJO Generator Plugin")
                         name.set("Vladimir Morozkin")
                         email.set("jvmorozkin@gmail.com")
                     }
@@ -92,21 +90,21 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-jar {
-    manifest {
-        attributes "Main-Class": "ru.yojo.yamltopojo.YojoPlugin"
-    }
-    zip64 = true
-    from {
-        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
-        duplicatesStrategy(DuplicatesStrategy.INCLUDE)
-    }
-}
+//jar {
+//    manifest {
+//        attributes "Main-Class": "ru.yojo.codegen.YojoPlugin"
+//    }
+//    zip64 = true
+//    from {
+//        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+//        duplicatesStrategy(DuplicatesStrategy.INCLUDE)
+//    }
+//}
 
 gradlePlugin {
     plugins {
         yojoGradlePlugin {
-            id = 'ru.yojo.yojo-gradle-plugin'
+            id = 'io.github.yojo-generator.gradle-plugin'
             implementationClass = 'ru.yojo.codegen.YojoPlugin'
         }
     }

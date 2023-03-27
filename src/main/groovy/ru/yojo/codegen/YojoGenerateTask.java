@@ -5,10 +5,11 @@ import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.plugins.ExtensionContainer;
 import org.gradle.api.tasks.CacheableTask;
 import org.gradle.api.tasks.TaskAction;
+import ru.yojo.codegen.mapper.MessageMapper;
 import ru.yojo.codegen.meta.Configuration;
-import ru.yojo.yamltopojo.domain.LombokProperties;
-import ru.yojo.yamltopojo.generator.YojoGenerator;
-import ru.yojo.yamltopojo.mapper.SchemaMapper;
+import ru.yojo.codegen.domain.LombokProperties;
+import ru.yojo.codegen.generator.YojoGenerator;
+import ru.yojo.codegen.mapper.SchemaMapper;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -32,7 +33,7 @@ public abstract class YojoGenerateTask extends DefaultTask {
                 getProject().getObjects().fileCollection().from(
                         getProject().getLayout().getProjectDirectory().dir(yojoConfig.getDirectories().getContractDirectory()).getAsFileTree());
 
-        YojoGenerator yojoGenerator = new YojoGenerator(new SchemaMapper());
+        YojoGenerator yojoGenerator = new YojoGenerator(new SchemaMapper(), new MessageMapper());
         inputFileCollection.forEach(file -> {
             String path = getProject().getBuildDir() + yojoConfig.getDirectories().getOutputDirectory() + file.getName().replaceAll("\\..*", "");
             if (new File(path).mkdirs()) {
