@@ -8,10 +8,11 @@ import javax.inject.Inject;
 
 public class Configuration {
 
-    ProjectLayout layout;
+    private ProjectLayout layout;
     protected Boolean lombokEnabled;
     protected Boolean allArgsConstructor;
     protected Boolean accessors;
+    protected String packageLocation;
     protected Directories directories;
 
     @Inject
@@ -21,7 +22,6 @@ public class Configuration {
 
     @SuppressWarnings("unused")
     public void directories(Closure<?> closure) {
-        // apply the given closure to the configuration bridge, i.e. its contained JAXB Configuration object
         YojoConfig.applyClosureToDelegate(closure, directories);
     }
 
@@ -57,8 +57,16 @@ public class Configuration {
         this.directories = directoriesProperty;
     }
 
+    public String getPackageLocation() {
+        return packageLocation;
+    }
+
+    public void setPackageLocation(String packageLocation) {
+        this.packageLocation = packageLocation;
+    }
+
     public Configuration withDirectories() {
-        this.directories = new Directories(layout);
+        this.directories = new Directories();
         return this;
     }
 

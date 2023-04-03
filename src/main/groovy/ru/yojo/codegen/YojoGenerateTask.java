@@ -29,16 +29,26 @@ public abstract class YojoGenerateTask extends DefaultTask {
     @TaskAction
     public void generateClasses() {
         System.out.println("TASK IS STARTED");
+        if (yojoConfig.getDirectories().getOutputDirectory() == null) {
+            yojoConfig.getDirectories().setOutputDirectory("/generated-sources/yojo/");
+        }
+
+        if (yojoConfig.getDirectories().getContractDirectory() == null) {
+            yojoConfig.getDirectories().setContractDirectory(getProject().getLayout().getProjectDirectory().getAsFile().getPath() + "/api_specification/");
+        }
+
         ConfigurableFileCollection inputFileCollection =
                 getProject().getObjects().fileCollection().from(
                         getProject().getLayout().getProjectDirectory().dir(yojoConfig.getDirectories().getContractDirectory()).getAsFileTree());
 
         YojoGenerator yojoGenerator = new YojoGenerator(new SchemaMapper(), new MessageMapper());
         inputFileCollection.forEach(file -> {
-            String path = getProject().getBuildDir() + yojoConfig.getDirectories().getOutputDirectory() + file.getName().replaceAll("\\..*", "");
-            if (new File(path).mkdirs()) {
-                yojoGenerator.generate(file.getPath(), path, new LombokProperties(yojoConfig.getLombokEnabled(), yojoConfig.getAllArgsConstructor(), yojoConfig.getAccessors()));
+            String path = getProject().getBuildDir() + yojoConfig.getDirectories().getOutputDirectory();
+            System.out.println("YOJO START GENERATE FROM THE FILE: " + file.getName());
+            if (!new File(path).exists()) {
+                new File(path).mkdirs();
             }
+            yojoGenerator.generate(file.getPath(), path, yojoConfig.getPackageLocation(), new LombokProperties(yojoConfig.getLombokEnabled(), yojoConfig.getAllArgsConstructor(), yojoConfig.getAccessors()));
         });
 
         System.out.println("TASK IS COMPLETED");

@@ -11,7 +11,7 @@ import javax.inject.Inject;
 public class YojoConfig {
 
     final String name;
-    ProjectLayout layout;
+    private ProjectLayout layout;
 
     private final Configuration yojoConfiguration;
 
@@ -19,13 +19,12 @@ public class YojoConfig {
     public YojoConfig(String name, ProviderFactory providers, ProjectLayout layout) {
         this.name = name;
         this.layout = layout;
-        System.out.println("CONFIGURATIONS");
+        System.out.println("YOJO READ CONFIGURATIONS");
         this.yojoConfiguration = yojoDefaultConfiguration();
     }
 
     @SuppressWarnings("unused")
     public void yojoConfiguration(Closure<?> closure) {
-        // apply the given closure to the configuration bridge, i.e. its contained JAXB Configuration object
         applyClosureToDelegate(closure, yojoConfiguration);
     }
 
