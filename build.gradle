@@ -29,7 +29,7 @@ dependencies {
     implementation gradleApi()
     implementation localGroovy()
 
-    api 'com.github.yojo-generator:generator:0.0.1'
+    api 'com.github.yojo-generator:generator:1.0.0'
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
