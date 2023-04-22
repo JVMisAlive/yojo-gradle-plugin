@@ -30,6 +30,7 @@ dependencies {
     implementation localGroovy()
 
     implementation 'org.yaml:snakeyaml:2.0'
+    implementation 'org.springframework:spring-context:5.3.25'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
 }

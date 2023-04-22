@@ -29,7 +29,10 @@ public class YojoConfig {
     }
 
     private Configuration yojoDefaultConfiguration() {
-        return new Configuration(layout).withDirectories();
+        return new Configuration(layout)
+                .withDirectories()
+                .withAccessors()
+                .withMessageImplementation();
     }
 
     public String getName() {
