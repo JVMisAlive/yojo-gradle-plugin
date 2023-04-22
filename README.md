@@ -14,16 +14,25 @@ yojo {
             yojoConfiguration {
                 lombokEnabled = true
                 allArgsConstructor = true
-                accessors = true
+                accessors {
+                    enable = true
+                    fluent = false
+                    chain = true
+                }
                 packageLocation = "ru.yojo.codegen"
                 directories {
-                    outputDirectory = "./generated-sources/ru/yojo/codegen/"
+                    outputDirectory = "./generated-sources/org/example"
                     contractDirectory = "./api_specification/"
+                }
+                messageImplementation {
+                    implementationPackage = "org.example.message"
+                    implementationClass = "Message"
                 }
             }
         }
     }
 }
+
 sourceSets {
     main {
         java {
