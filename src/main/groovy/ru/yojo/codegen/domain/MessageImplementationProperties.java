@@ -1,5 +1,6 @@
 package ru.yojo.codegen.domain;
 
+@SuppressWarnings("all")
 public class MessageImplementationProperties {
 
     private String implementationPackage;

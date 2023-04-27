@@ -40,6 +40,8 @@ public class SchemaMapper {
                         castObjectToMap(schemaMap.get(PROPERTIES.getValue())), commonPackage, innerSchemas)
                 );
                 schemaList.add(schema);
+            } else if (schemaType != null && JAVA_DEFAULT_TYPES.contains(capitalize(schemaType))) {
+                System.out.println("SKIP SCHEMA BECAUSE TYPE IS: " + schemaType);
             } else {
                 throw new SchemaFillException("NOT DEFINED TYPE OF SCHEMA! Schema: " + schemaName);
             }

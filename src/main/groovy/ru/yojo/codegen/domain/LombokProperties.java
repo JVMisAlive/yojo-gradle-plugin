@@ -1,5 +1,6 @@
 package ru.yojo.codegen.domain;
 
+@SuppressWarnings("all")
 public final class LombokProperties {
     private final boolean enableLombok;
     private final boolean allArgsConstructor;
