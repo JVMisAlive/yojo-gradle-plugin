@@ -5,7 +5,6 @@ import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.plugins.ExtensionContainer;
 import org.gradle.api.tasks.CacheableTask;
 import org.gradle.api.tasks.TaskAction;
-import ru.yojo.codegen.domain.MessageImplementationProperties;
 import ru.yojo.codegen.mapper.MessageMapper;
 import ru.yojo.codegen.meta.Accessors;
 import ru.yojo.codegen.meta.Configuration;
@@ -56,7 +55,6 @@ public abstract class YojoGenerateTask extends DefaultTask {
             }
             Accessors accessors = yojoConfig.getAccessors();
             LombokProperties.Accessors lombokAccessors = new LombokProperties.Accessors(accessors.isEnable(), accessors.isFluent(), accessors.isChain());
-            MessageImplementationProperties messageImplementationProperties = new MessageImplementationProperties(yojoConfig.getMessageImplementation().getImplementationPackage(), yojoConfig.getMessageImplementation().getImplementationClass());
             yojoGenerator.generate(
                     file.getPath(),
                     path,
@@ -64,8 +62,7 @@ public abstract class YojoGenerateTask extends DefaultTask {
                     new LombokProperties(
                             yojoConfig.getLombokEnabled(),
                             yojoConfig.getAllArgsConstructor(),
-                            lombokAccessors),
-                    messageImplementationProperties
+                            lombokAccessors)
             );
         });
         long l = System.currentTimeMillis() - millis;

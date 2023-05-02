@@ -31,8 +31,7 @@ public class YojoConfig {
     private Configuration yojoDefaultConfiguration() {
         return new Configuration(layout)
                 .withDirectories()
-                .withAccessors()
-                .withMessageImplementation();
+                .withAccessors();
     }
 
     public String getName() {

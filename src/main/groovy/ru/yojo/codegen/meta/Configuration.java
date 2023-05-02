@@ -13,7 +13,6 @@ public class Configuration {
     protected Boolean lombokEnabled;
     protected Boolean allArgsConstructor;
     protected Accessors accessors;
-    protected MessageImplementation messageImplementation;
     protected String packageLocation;
     protected Directories directories;
 
@@ -30,11 +29,6 @@ public class Configuration {
     @SuppressWarnings("unused")
     public void accessors(Closure<?> closure) {
         YojoConfig.applyClosureToDelegate(closure, accessors);
-    }
-
-    @SuppressWarnings("unused")
-    public void messageImplementation(Closure<?> closure) {
-        YojoConfig.applyClosureToDelegate(closure, messageImplementation);
     }
 
     public Boolean getLombokEnabled() {
@@ -77,13 +71,6 @@ public class Configuration {
         this.packageLocation = packageLocation;
     }
 
-    public MessageImplementation getMessageImplementation() {
-        return messageImplementation;
-    }
-
-    public void setMessageImplementation(MessageImplementation messageImplementation) {
-        this.messageImplementation = messageImplementation;
-    }
 
     public Configuration withDirectories() {
         this.directories = new Directories();
@@ -92,11 +79,6 @@ public class Configuration {
 
     public Configuration withAccessors() {
         this.accessors = new Accessors();
-        return this;
-    }
-
-    public Configuration withMessageImplementation() {
-        this.messageImplementation = new MessageImplementation();
         return this;
     }
 
