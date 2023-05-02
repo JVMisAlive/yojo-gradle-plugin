@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'io.github.yojo.gradle-plugin'
-version '0.0.1'
+version '0.0.2'
 
 //LocalPublishing
 //publishing {
@@ -29,7 +29,7 @@ dependencies {
     implementation gradleApi()
     implementation localGroovy()
 
-    api 'com.github.yojo-generator:generator:1.0.0'
+    api 'com.github.yojo-generator:generator:1.0.2'
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
@@ -50,7 +50,7 @@ publishing {
         pluginPublication(MavenPublication) {
             artifactId = "gradle-plugin"
             groupId = "io.github.yojo-generator"
-            version = "0.0.1"
+            version = "0.0.2"
             pom {
                 packaging = "jar"
                 name.set("YOJO gradle plugin")

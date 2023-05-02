@@ -24,10 +24,6 @@ yojo {
                     outputDirectory = "./generated-sources/org/example"
                     contractDirectory = "./api_specification/"
                 }
-                messageImplementation {
-                    implementationPackage = "org.example.message"
-                    implementationClass = "Message"
-                }
             }
         }
     }
