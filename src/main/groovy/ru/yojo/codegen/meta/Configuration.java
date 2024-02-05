@@ -2,8 +2,8 @@ package ru.yojo.codegen.meta;
 
 import groovy.lang.Closure;
 import org.gradle.api.file.ProjectLayout;
+import org.gradle.api.tasks.Input;
 import ru.yojo.codegen.YojoConfig;
-import ru.yojo.codegen.domain.LombokProperties;
 
 import javax.inject.Inject;
 
@@ -14,18 +14,13 @@ public class Configuration {
     protected Boolean allArgsConstructor;
     protected Accessors accessors;
     protected String packageLocation;
-    protected Directories directories;
+    protected String outputDirectory;
+    protected String contractDirectory;
 
     @Inject
     public Configuration(ProjectLayout layout) {
         this.layout = layout;
     }
-
-    @SuppressWarnings("unused")
-    public void directories(Closure<?> closure) {
-        YojoConfig.applyClosureToDelegate(closure, directories);
-    }
-
     @SuppressWarnings("unused")
     public void accessors(Closure<?> closure) {
         YojoConfig.applyClosureToDelegate(closure, accessors);
@@ -55,14 +50,6 @@ public class Configuration {
         this.accessors = accessors;
     }
 
-    public Directories getDirectories() {
-        return directories;
-    }
-
-    public void setDirectories(Directories directoriesProperty) {
-        this.directories = directoriesProperty;
-    }
-
     public String getPackageLocation() {
         return packageLocation;
     }
@@ -71,9 +58,20 @@ public class Configuration {
         this.packageLocation = packageLocation;
     }
 
-    public Configuration withDirectories() {
-        this.directories = new Directories();
-        return this;
+    public String getOutputDirectory() {
+        return outputDirectory;
+    }
+
+    public void setOutputDirectory(String outputDirectory) {
+        this.outputDirectory = outputDirectory;
+    }
+
+    public String getContractDirectory() {
+        return contractDirectory;
+    }
+
+    public void setContractDirectory(String contractDirectory) {
+        this.contractDirectory = contractDirectory;
     }
 
     public Configuration withAccessors() {

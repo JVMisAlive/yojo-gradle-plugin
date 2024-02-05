@@ -3,11 +3,12 @@ plugins {
     id 'com.gradle.plugin-publish' version '1.1.0'
     id 'maven-publish'
     id 'groovy'
+    id 'java'
     id 'java-library'
 }
 
-group 'io.github.yojo.gradle-plugin'
-version '0.0.2'
+group 'ru.yojo'
+version '0.0.1'
 
 //LocalPublishing
 //publishing {
@@ -21,15 +22,30 @@ version '0.0.2'
 allprojects {
     repositories {
         mavenCentral()
-        maven { url 'https://jitpack.io' }
+        maven {
+//            mavenCentral()
+//            maven { url 'https://jitpack.io' }
+            url = uri("https://maven.pkg.github.com/yojo-generator/generator")
+            credentials {
+                username = project.findProperty("user") ?: System.getenv("USERNAME")
+                password = project.findProperty("token") ?: System.getenv("TOKEN")
+            }
+        }
     }
 }
+
+//jar {
+//    zip64 = true
+//    from {
+//        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+//        duplicatesStrategy(DuplicatesStrategy.INCLUDE)
+//    }
+//}
 
 dependencies {
     implementation gradleApi()
     implementation localGroovy()
-
-    api 'com.github.yojo-generator:generator:1.0.2'
+    api 'ru.yojo:yojo-generator:0.0.1'
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
@@ -41,46 +57,47 @@ test {
     useJUnitPlatform()
 }
 
-publishing {
-    repositories {
-        //mavenCentral()
-        //mavenLocal()
-    }
-    publications {
-        pluginPublication(MavenPublication) {
-            artifactId = "gradle-plugin"
-            groupId = "io.github.yojo-generator"
-            version = "0.0.2"
-            pom {
-                packaging = "jar"
-                name.set("YOJO gradle plugin")
-                url.set("https://github.com/yojo-generator/gradle-plugin")
-                description.set("This yojo gradle plugin")
-
-                licenses {
-                    license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
-
-                scm {
-                    connection.set("scm:https://github.com/yojo-generator/gradle-plugin.git")
-                    developerConnection.set("scm:git@github.com:yojo-generator/gradle-plugin.git")
-                    url.set("https://github.com/yojo-generator/gradle-plugin.git")
-                }
-
-                developers {
-                    developer {
-                        id.set("YOJO Generator Plugin")
-                        name.set("Vladimir Morozkin")
-                        email.set("jvmorozkin@gmail.com")
-                    }
-                }
-            }
-        }
-    }
-}
+//publishing {
+//    repositories {
+//        maven {
+//            name = "GitHubPackages"
+//            url = uri("https://maven.pkg.github.com/yojo-generator/gradle-plugin")
+//            credentials {
+//                username = project.findProperty("user") ?: System.getenv("USERNAME")
+//                password = project.findProperty("token") ?: System.getenv("TOKEN")
+//            }
+//        }
+//    }
+//}
+//    publications {
+//        pluginPublication(MavenPublication) {
+//            artifactId = "gradle-plugin"
+//            groupId = "ru.yojo"
+//            version = "0.0.1"
+//            pom {
+//                packaging = "jar"
+//                name.set("YOJO gradle plugin")
+//                url.set("https://github.com/yojo-generator/gradle-plugin")
+//                description.set("This yojo gradle plugin")
+//
+//                licenses {
+//                    license {
+//                        name.set("The Apache License, Version 2.0")
+//                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+//                    }
+//                }
+//
+//                developers {
+//                    developer {
+//                        id.set("YOJO Generator Plugin")
+//                        name.set("Vladimir Morozkin")
+//                        email.set("jvmorozkin@gmail.com")
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
 
 ext {
     junitVersion = '5.8.2'
@@ -90,21 +107,10 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-//jar {
-//    manifest {
-//        attributes "Main-Class": "ru.yojo.codegen.YojoPlugin"
-//    }
-//    zip64 = true
-//    from {
-//        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
-//        duplicatesStrategy(DuplicatesStrategy.INCLUDE)
-//    }
-//}
-
 gradlePlugin {
     plugins {
         yojoGradlePlugin {
-            id = 'io.github.yojo-generator.gradle-plugin'
+            id = 'ru.yojo.gradle-plugin'
             implementationClass = 'ru.yojo.codegen.YojoPlugin'
         }
     }
