@@ -1,14 +1,14 @@
 plugins {
     id 'java-gradle-plugin'
-    id 'com.gradle.plugin-publish' version '1.1.0'
+    id 'com.gradle.plugin-publish' version '1.3.0'
     id 'maven-publish'
     id 'groovy'
     id 'java'
     id 'java-library'
 }
 
-group 'ru.yojo'
-version '0.0.1'
+group 'io.github.yojo-generator'
+version '0.5.0'
 
 //LocalPublishing
 //publishing {
@@ -22,15 +22,6 @@ version '0.0.1'
 allprojects {
     repositories {
         mavenCentral()
-        maven {
-//            mavenCentral()
-//            maven { url 'https://jitpack.io' }
-            url = uri("https://maven.pkg.github.com/yojo-generator/generator")
-            credentials {
-                username = project.findProperty("user") ?: System.getenv("USERNAME")
-                password = project.findProperty("token") ?: System.getenv("TOKEN")
-            }
-        }
     }
 }
 
@@ -45,10 +36,7 @@ allprojects {
 dependencies {
     implementation gradleApi()
     implementation localGroovy()
-    api 'ru.yojo:yojo-generator:0.0.1'
-
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
-    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    api 'io.github.yojo-generator:generator:1.0.2'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
 }
@@ -110,8 +98,13 @@ tasks.withType(JavaCompile) {
 gradlePlugin {
     plugins {
         yojoGradlePlugin {
-            id = 'ru.yojo.gradle-plugin'
+            website = 'https://github.com/yojo-generator/gradle-plugin'
+            vcsUrl = 'https://github.com/yojo-generator/gradle-plugin'
+            id = 'io.github.yojo-generator.gradle-plugin'
             implementationClass = 'ru.yojo.codegen.YojoPlugin'
+            displayName = 'YOJO Generator Gradle Plugin'
+            description = 'This is gradle-plugin for spring-boot application for generating Java classes from AsyncApi specification'
+            tags.set(['yojo', 'asyncapi', 'asyncapi-generator', 'yaml-pojo', 'pojo-builder', 'asyncapi-tools', 'asyncapi', 'yaml-parser'])
         }
     }
 }

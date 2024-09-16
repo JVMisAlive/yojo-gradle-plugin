@@ -16,6 +16,7 @@ public class Configuration {
     protected String packageLocation;
     protected String outputDirectory;
     protected String contractDirectory;
+    protected String springBootVersion;
 
     @Inject
     public Configuration(ProjectLayout layout) {
@@ -72,6 +73,14 @@ public class Configuration {
 
     public void setContractDirectory(String contractDirectory) {
         this.contractDirectory = contractDirectory;
+    }
+
+    public String getSpringBootVersion() {
+        return springBootVersion;
+    }
+
+    public void setSpringBootVersion(String springBootVersion) {
+        this.springBootVersion = springBootVersion;
     }
 
     public Configuration withAccessors() {
