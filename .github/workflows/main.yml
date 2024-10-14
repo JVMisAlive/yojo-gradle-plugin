@@ -1,0 +1,43 @@
+name: Publish Plugin
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+
+      - name: Build Project
+        run: ./gradlew build
+
+      - name: Compile Java and Groovy
+        run: ./gradlew compileJava compileGroovy
+        
+      - name: Generate Plugin Descriptors
+        run: ./gradlew pluginDescriptors
+
+      - name: Process Resources
+        run: ./gradlew processResources
+
+      - name: Assemble
+        run: ./gradlew assemble
+
+      - name: Generate Javadoc
+        run: ./gradlew javadoc javadocJar
+
+      - name: Generate Sources Jar
+        run: ./gradlew sourcesJar
+
+      - name: Publish Plugin
+        run: ./gradlew pluginPortal.publishPlugins -Pgradle.publish.key=${{ secrets.GRADLE_PUBLISH_KEY }} -Pgradle.publish.secret=${{ secrets.GRADLE_PUBLISH_SECRET }}
